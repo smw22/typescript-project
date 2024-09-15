@@ -46,12 +46,19 @@ const renderTodos = (): void => {
     li.className = 'todo-item'; 
     li.innerHTML = `
       <span>${todo.title}</span>
-      <button>Remove</button>
-      <button id="editBtn">Edit</button>
+      <button> Remove </button>
+      <button id="editBtn"> Edit </button>
+      <button class="completedBtn"> Completed </button> 
     `;
     addRemoveButtonListener(li, todo.id);
     addEditButtonListener(li, todo.id);
+    addCompletedButtonListener(li, todo.id);
     todoList.appendChild(li); 
+
+    const completedButton = li.querySelector('.completedBtn') as HTMLButtonElement;
+    if (todo.completed) {
+      changeCompletedColor(completedButton);
+    }
   });
 };
 
@@ -121,3 +128,40 @@ const changeBackgroundColor = (color:string):void => {
 document.addEventListener('DOMContentLoaded', () => {
   initializeColorPicker()
 })
+
+
+// Option 1: Add a button to toggle the completed status of a todo item
+
+const editCompletedButton = (id: number): void => {
+  const todo = todos.find(todo => todo.id === id);
+  if (todo) {
+    todo.completed = !todo.completed; // Toggle the completed status
+    renderTodos(); 
+  }
+};
+
+const addCompletedButtonListener = (li: HTMLLIElement, id: number): void => {
+  const completedButton = li.querySelector('.completedBtn') as HTMLButtonElement;
+  completedButton?.addEventListener('click', () => editCompletedButton(id));
+};
+
+const completedColor = "green";
+
+const changeCompletedColor = (completedButton: HTMLButtonElement): void => {
+  completedButton.style.backgroundColor = completedColor;
+};
+
+
+
+
+
+//Option 2: Add a button to clear all completed todos
+const removeAllTodos = (): void => {
+  todos = [];
+  renderTodos();
+};
+
+const removeAllTodosButton = document.getElementById('remove-all-todos') as HTMLButtonElement;
+if (removeAllTodosButton) {
+  removeAllTodosButton.addEventListener('click', removeAllTodos);
+}
