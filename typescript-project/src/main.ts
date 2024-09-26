@@ -54,6 +54,7 @@ const renderTodos = (): void => {
     addEditButtonListener(li, todo.id);
     addCompletedButtonListener(li, todo.id);
     todoList.appendChild(li); 
+    buttonCondition();
 
     const completedButton = li.querySelector('.completedBtn') as HTMLButtonElement;
     if (todo.completed) {
@@ -153,15 +154,61 @@ const changeCompletedColor = (completedButton: HTMLButtonElement): void => {
 
 
 
-
-
 //Option 2: Add a button to clear all completed todos
 const removeAllTodos = (): void => {
   todos = [];
   renderTodos();
+  buttonCondition();
 };
 
 const removeAllTodosButton = document.getElementById('remove-all-todos') as HTMLButtonElement;
-if (removeAllTodosButton) {
-  removeAllTodosButton.addEventListener('click', removeAllTodos);
+const buttonCondition = () => {
+  if(todos.length === 0 && removeAllTodosButton) {
+    removeAllTodosButton.style.display = 'none';
+  }
+  else if(todos.length > 0 && removeAllTodosButton) {
+    removeAllTodosButton.style.display = 'block';
+    removeAllTodosButton.addEventListener('click', removeAllTodos);
+  }
 }
+
+buttonCondition();
+
+
+// Option 8: Add a search input field to filter todos based on the search query
+
+const searchButton = document.getElementById('search') as HTMLInputElement;
+searchButton.addEventListener("input", (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  const value = target.value.toLowerCase();
+  const filteredTodos = todos.filter(todo => todo.title.toLowerCase().includes(value)
+  );
+  renderFilteredTodos(filteredTodos);
+});
+
+
+const renderFilteredTodos = (filteredTodos: Todo[]): void => {
+  todoList.innerHTML = ''; // Clear the current list
+
+  filteredTodos.forEach(todo => {
+    const li = document.createElement('li');
+    li.className = 'todo-item'; 
+    li.innerHTML = `
+      <span>${todo.title}</span>
+      <button> Remove </button>
+      <button id="editBtn"> Edit </button>
+      <button class="completedBtn"> Completed </button> 
+    `;
+    
+    addRemoveButtonListener(li, todo.id);
+    addEditButtonListener(li, todo.id);
+    addCompletedButtonListener(li, todo.id);
+    
+    todoList.appendChild(li);
+
+    const completedButton = li.querySelector('.completedBtn') as HTMLButtonElement;
+    if (todo.completed) {
+      changeCompletedColor(completedButton);
+    }
+  });
+};
