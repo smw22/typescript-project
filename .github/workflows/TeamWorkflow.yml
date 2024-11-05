@@ -29,3 +29,16 @@ jobs:
           password: ???
           server-dir: ???
           local-dir: dist/
+
+      - name: Install TestCafe
+        run: npm install -g Testcafe
+
+      - name: Update APT
+        run: apt-get update
+
+      - name: Install Chromium
+        run: apt-get install -y chromium
+
+      - name: Run Tests
+        run: testcafe chromium:headless test/*
+        
