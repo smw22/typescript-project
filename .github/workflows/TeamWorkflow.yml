@@ -41,4 +41,29 @@ jobs:
 
       - name: Run Tests
         run: testcafe chromium:headless test/*
+
+      - name: Store artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
         
+  deployment: 
+    needs: integartion-delivery
+    runs-on: ubuntu-latest
+    environment: Live
+    steps: 
+      - name: Load artifacts
+        uses: actions/download-artifacts@v3
+        with:
+          name: dist
+          path: dist/
+          
+      - name: FTP delivery
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with: 
+          server: ???
+          username: ???
+          password: ???
+          server-dir: ???
+          local-dir: dist/
