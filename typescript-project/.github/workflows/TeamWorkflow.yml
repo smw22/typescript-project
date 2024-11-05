@@ -3,7 +3,7 @@ name: TeamWorkflow
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs:
   integration-delivery:
@@ -12,11 +12,11 @@ jobs:
     container:
       image: node
     steps:
-      name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      name: Build website
-      run: npm run build
+      - name: Build website
+        run: npm run build
