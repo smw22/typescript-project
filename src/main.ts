@@ -205,3 +205,22 @@ const renderFilteredTodos = (filteredTodos: Todo[]): void => {
     }
   });
 };
+
+// Feature in the first branch (feature-A) --> light/night mode
+
+const lightButton = document.getElementById('light-mode') as HTMLButtonElement;
+const darkButton = document.getElementById('dark-mode') as HTMLButtonElement;
+
+const changeToLightMode = () => {
+  document.body.style.backgroundColor = "white"
+  document.body.style.color = "black";
+}
+
+lightButton.addEventListener('click', changeToLightMode);
+
+const changeToDarkMode = () => {
+  document.body.style.backgroundColor = "black";
+  document.body.style.color = "white";
+}
+
+darkButton.addEventListener('click', changeToDarkMode);
