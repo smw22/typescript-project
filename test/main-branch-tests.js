@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
 
 fixture("main tests")
-    .page("http://localhost:5174/");
+    .page("test.sergioswordpresstest.dk/todo/");
 
 test("Completed Button", async t => {
     await t
