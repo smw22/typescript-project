@@ -54,7 +54,7 @@ jobs:
     environment: Live
     steps: 
       - name: Load artifacts
-        uses: actions/download-artifacts@v3
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist/
