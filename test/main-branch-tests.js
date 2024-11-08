@@ -7,8 +7,6 @@ test("Completed Button", async t => {
     await t
     .typeText ('#todo-input', 'hellooo')
     .click ('#add-todo')
-    // .click('.completedBtn')
-    // .expect (Selector('.completedBtn').style.backgroundColor("green"));
-    .expect (Selector('body').innerText).contains("hellooo");
+    .expect (Selector('#todo-list').innerText).contains("hellooo");
     
 })
