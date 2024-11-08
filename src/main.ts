@@ -161,11 +161,19 @@ const buttonCondition = () => {
   }
   else if(todos.length > 0 && removeAllTodosButton) {
     removeAllTodosButton.style.display = 'block';
-    removeAllTodosButton.addEventListener('click', removeAllTodos);
   }
 }
 
 buttonCondition();
+
+//feature 2 --> confirm to delete all todos
+removeAllTodosButton.addEventListener('click', () => {
+  const userConfirmed = confirm("Are you sure you want to delete all todos?");
+  if (userConfirmed) {
+    removeAllTodos();
+    console.log("todos removed")
+  }
+});
 
 
 // Option 8: Add a search input field to filter todos based on the search query
