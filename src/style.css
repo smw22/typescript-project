@@ -80,3 +80,8 @@ button:focus-visible {
 .hide{
   display: none;
 }
+
+.mode-buttons{
+  position: absolute;
+  top: 20px
+}
